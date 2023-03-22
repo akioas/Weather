@@ -16,13 +16,42 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="JMP-Si-t3T">
+                                <rect key="frame" x="0.0" y="67" width="390" height="723"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0P1-Lm-Ubb">
+                                        <rect key="frame" x="0.0" y="0.0" width="192.66666666666666" height="723"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DlW-NS-Ip6">
+                                        <rect key="frame" x="197.66666666666663" y="0.0" width="192.33333333333337" height="723"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="DlW-NS-Ip6" firstAttribute="width" secondItem="0P1-Lm-Ubb" secondAttribute="width" id="wVv-Ec-FER"/>
+                                    <constraint firstItem="DlW-NS-Ip6" firstAttribute="height" secondItem="0P1-Lm-Ubb" secondAttribute="height" id="xiw-BY-7UP"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="JMP-Si-t3T" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="JjX-Pj-m0C"/>
+                            <constraint firstItem="JMP-Si-t3T" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="anG-rK-dhd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JMP-Si-t3T" secondAttribute="bottom" constant="20" id="az0-Ha-Tdo"/>
+                            <constraint firstItem="JMP-Si-t3T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="f2y-H4-CpZ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="leftTable" destination="DlW-NS-Ip6" id="AsQ-cY-woN"/>
+                        <outlet property="rightTable" destination="0P1-Lm-Ubb" id="qPD-5w-EhN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="48" y="-2"/>
+            <point key="canvasLocation" x="47.692307692307693" y="-2.1327014218009479"/>
         </scene>
     </scenes>
     <resources>
