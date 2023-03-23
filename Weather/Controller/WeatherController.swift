@@ -4,15 +4,15 @@ import Foundation
 
 class WeatherController {
     let data = CitiesData()
-    func addToFavourites(city: Int) {
+    func addToFavourites(city: String) {
         data.addToFavourites(city: city)
     }
     
-    func removeFromFavourites(city: Int) {
+    func removeFromFavourites(city: String) {
         data.removeFromFavourites(city: city)
     }
     
-    func isFavourite(city: Int) -> Bool {
+    func isFavourite(city: String) -> Bool {
         data.isFavourite(city: city)
     }
 }

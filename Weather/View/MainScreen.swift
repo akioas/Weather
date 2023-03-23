@@ -14,8 +14,8 @@ class MainScreen: UIViewController, UITableViewDataSource, UITableViewDelegate {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
                 let secondVc = storyboard.instantiateViewController(withIdentifier: "Favourites") as! FavouriteScreen
         var favourites = [WeatherData]()
-        for (i, cityData) in weatherData.enumerated() {
-            if controller.isFavourite(city: i) {
+        for (cityData) in weatherData {
+            if controller.isFavourite(city: cityData.name ?? "") {
                 favourites.append(cityData)
             }
         }
@@ -30,6 +30,11 @@ class MainScreen: UIViewController, UITableViewDataSource, UITableViewDelegate {
             .addObserver(self,
                          selector:#selector(refresh(_:)),
                          name: .weatherRequest,
+                         object: nil)
+        NotificationCenter.default
+            .addObserver(self,
+                         selector:#selector(reloadData),
+                         name: .reloadData,
                          object: nil)
         WeatherRequest().makeRequest()
         configureTable(identifier: leftId, table: rTable)
@@ -48,12 +53,15 @@ class MainScreen: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @objc func refresh(_ notification: NSNotification) {
         if let data = notification.userInfo?[Notification.Name.weatherRequest] as? [WeatherData] {
             self.weatherData = data
-            DispatchQueue.main.async {
-                self.rTable.reloadData()
-                self.lTable.reloadData()
-            }
+            reloadData()
         }
         
+    }
+    @objc func reloadData() {
+        DispatchQueue.main.async {
+            self.rTable.reloadData()
+            self.lTable.reloadData()
+        }
     }
     
 }
@@ -119,12 +127,12 @@ extension MainScreen {
             }
             
         }
-        if controller.isFavourite(city: index) {
+        if controller.isFavourite(city: weatherData[index].name ?? "") {
             cell.favView.image = UIImage(systemName: "heart.fill")
         } else {
             cell.favView.image = UIImage(systemName: "heart")
         }
-        cell.favView.tintColor = .black
+        cell.favView.tintColor = .red
         cell.favView.tag = index
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
 
@@ -137,10 +145,10 @@ extension MainScreen {
         let tappedImage = tapGestureRecognizer.view as! UIImageView
         if tappedImage.image == UIImage(systemName: "heart") {
             tappedImage.image = UIImage(systemName: "heart.fill")
-            controller.addToFavourites(city: (tappedImage.tag))
+            controller.addToFavourites(city: weatherData[(tappedImage.tag)].name ?? "")
         } else {
             tappedImage.image = UIImage(systemName: "heart")
-            controller.removeFromFavourites(city: tappedImage.tag)
+            controller.removeFromFavourites(city: weatherData[(tappedImage.tag)].name ?? "")
         }
     }
 

@@ -9,6 +9,7 @@ class FavouriteScreen: UIViewController, UITableViewDataSource, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         table.register(UITableViewCell.self, forCellReuseIdentifier: idebtifier)
+        
         table.dataSource = self
         table.delegate = self
     }
@@ -27,25 +28,49 @@ extension FavouriteScreen {
         let cell = tableView.dequeueReusableCell(withIdentifier: idebtifier, for: indexPath)
         let index = indexPath.row
         cell.selectionStyle = .none
-        let label = UILabel()
-        label.frame = CGRect(x: 20, y: 0, width: 150, height: 30)
-        label.text = weatherData[index].name
-        cell.contentView.addSubview(label)
-        let windLabel = UILabel()
-        windLabel.frame = CGRect(x: 170, y: 15, width: 100, height: 30)
-        windLabel.text = String(weatherData[index].wind?.speed ?? 0) + " m/s"
-        cell.contentView.addSubview(windLabel)
-        let teempLabel = UILabel()
-        teempLabel.frame = CGRect(x: 270, y: 15, width: 100, height: 30)
-        teempLabel.text = String(Int((weatherData[index].main?.temp ?? 0.0) - 273.15)) + " °C"
-        cell.contentView.addSubview(teempLabel)
-        let description = UILabel()
-        description.frame = CGRect(x: 20, y: 30, width: 150, height: 30)
-        description.text = weatherData[index].weather?.first?.description
-        cell.contentView.addSubview(description)
+        let text = (weatherData[index].name ?? "") + "\n" + (weatherData[index].weather?.first?.description ?? "")
+        let windText = String(weatherData[index].wind?.speed ?? 0) + " m/s"
+        let tempText = String(Int((weatherData[index].main?.temp ?? 0.0) - 273.15)) + " °C"
+        cell.textLabel?.numberOfLines = 2
+        cell.textLabel?.text = text
+        
+        let accView = UIView()
+        accView.frame = CGRect(x: 0, y: 0, width: 150, height: 50)
+        let lLabel = UILabel()
+        lLabel.frame = CGRect(x: 0, y: 0, width: 70, height: 50)
+        lLabel.text = windText
+        let rLabel = UILabel()
+        rLabel.frame = CGRect(x: 80, y: 0, width: 70, height: 50)
+        rLabel.text = tempText
+        accView.addSubview(rLabel)
+        accView.addSubview(lLabel)
+        cell.accessoryView = accView
+        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            WeatherController().removeFromFavourites(city: weatherData[indexPath.row].name ?? "")
+            weatherData.remove(at: indexPath.row)
+            table.reloadData()
+            NotificationCenter.default.post(name: .reloadData,
+                                            object: nil)
+        }
+    }
 }
+
+
+
+extension Notification.Name {
+    static var reloadData: Notification.Name {
+        return .init(rawValue: "reload data") }
+}
+
