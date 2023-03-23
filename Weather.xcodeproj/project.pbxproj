@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A5455B629CC44B700A00E66 /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5455B529CC44B700A00E66 /* WeatherController.swift */; };
 		4A76A79629CB169900EA9EDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A76A79529CB169900EA9EDF /* AppDelegate.swift */; };
 		4A76A79829CB169900EA9EDF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A76A79729CB169900EA9EDF /* SceneDelegate.swift */; };
 		4A76A79A29CB169900EA9EDF /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A76A79929CB169900EA9EDF /* MainScreen.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A5455B529CC44B700A00E66 /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
 		4A76A79229CB169900EA9EDF /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A76A79529CB169900EA9EDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A76A79729CB169900EA9EDF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,7 +78,6 @@
 				4A76A7B129CB38D800EA9EDF /* View */,
 				4A76A7B329CB38F500EA9EDF /* Controller */,
 				4A76A7B229CB38EF00EA9EDF /* Model */,
-				4A76A7AF29CB2A3600EA9EDF /* Cities.swift */,
 				4A76A79B29CB169900EA9EDF /* Main.storyboard */,
 				4A76A79E29CB169C00EA9EDF /* Assets.xcassets */,
 				4A76A7A029CB169C00EA9EDF /* LaunchScreen.storyboard */,
@@ -98,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				4A76A7AB29CB1D4300EA9EDF /* WeatherData.swift */,
+				4A76A7AF29CB2A3600EA9EDF /* Cities.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				4A76A7AD29CB1E1200EA9EDF /* WeatherRequest.swift */,
+				4A5455B529CC44B700A00E66 /* WeatherController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				4A76A7AA29CB175900EA9EDF /* FavouriteScreen.swift in Sources */,
 				4A76A7B029CB2A3600EA9EDF /* Cities.swift in Sources */,
 				4A76A79629CB169900EA9EDF /* AppDelegate.swift in Sources */,
+				4A5455B629CC44B700A00E66 /* WeatherController.swift in Sources */,
 				4A76A79829CB169900EA9EDF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

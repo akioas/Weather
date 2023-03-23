@@ -87,7 +87,7 @@ extension MainScreen {
         cell.separatorInset = UIEdgeInsets.zero
         cell.layoutMargins = UIEdgeInsets.zero
         cell.cellLabel?.font = UIFont.systemFont(ofSize: 12)
-        if (index) < cities.count {
+        if (index) < weatherData.count {
             if let text = (weatherData[index].name) {
                 cell.cellLabel?.text = text
             }
@@ -97,7 +97,7 @@ extension MainScreen {
             
             if let temp = weatherData[index].main?.temp {
                 cell.rightLabel?.font = UIFont.systemFont(ofSize: 12)
-                cell.rightLabel?.text = String(Int(temp - 273.15)) + "°C "
+                cell.rightLabel?.text = String(Int(temp - 273.15)) + "°C"
 
                 if let description = weatherData[index].weather?.first?.description {
                     cell.weatherLabel?.font = UIFont.systemFont(ofSize: 10)
@@ -106,10 +106,30 @@ extension MainScreen {
             }
             
         }
+        if WeatherController().isFavourite(city: index) {
+            cell.favView.image = UIImage(systemName: "heart.fill")
+        } else {
+            cell.favView.image = UIImage(systemName: "heart")
+        }
+        cell.favView.tintColor = .black
+        cell.favView.tag = index
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+
+        cell.favView.addGestureRecognizer(tapGestureRecognizer)
         
         
     }
-    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        if tappedImage.image == UIImage(systemName: "heart") {
+            tappedImage.image = UIImage(systemName: "heart.fill")
+            WeatherController().addToFavourites(city: (tappedImage.tag))
+        } else {
+            tappedImage.image = UIImage(systemName: "heart")
+            WeatherController().removeFromFavourites(city: tappedImage.tag)
+        }
+    }
 
 }
 
@@ -118,6 +138,7 @@ class Cell: UITableViewCell {
     @IBOutlet weak var rightLabel: UILabel!
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var cellLabel: UILabel!
+    @IBOutlet weak var favView: UIImageView!
     @IBOutlet weak var weatherLabel: UILabel!
 }
 class LeftCell: Cell {

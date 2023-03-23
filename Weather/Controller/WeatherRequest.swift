@@ -12,10 +12,10 @@ class WeatherRequest {
     let urlDownloadGroup = DispatchGroup()
     
     func makeRequest() {
-        cities.forEach { city in
+        CitiesData().cities.forEach { city in
             let url = baseUrl + "?q=" + city.replacingOccurrences(of: " ", with: "%20") + ",ru&APPID=" + key
             self.urlDownloadGroup.enter()
-            var request = URLRequest(url: URL(string: url)!)
+            let request = URLRequest(url: URL(string: url)!)
             let session = URLSession.shared
             session.dataTask(with: request) { (data, response, error) in
                 DispatchQueue.main.async {
@@ -59,6 +59,7 @@ class WeatherRequest {
                             if let data = data {
                                 do {
                                     let json = try JSONDecoder().decode(WeatherErrorData.self, from: data)
+                                    print(json)
                                     
                                 } catch {
                                     print(error)
@@ -71,10 +72,9 @@ class WeatherRequest {
         }
         urlDownloadGroup.notify(queue: DispatchQueue.global()) {
             self.weatherData = self.weatherData.sorted(by:
-                                                        {cities.firstIndex(of: $0.name ?? "") ?? 0 < cities.firstIndex(of: $1.name ?? "") ?? 0})
-            print("!!!")
-                NotificationCenter.default.post(name: .weatherRequest,
-                                                object: nil, userInfo: [Notification.Name.weatherRequest : self.weatherData]) 
+                                                        {CitiesData().cities.firstIndex(of: $0.name ?? "") ?? 0 < CitiesData().cities.firstIndex(of: $1.name ?? "") ?? 0})
+            NotificationCenter.default.post(name: .weatherRequest,
+                                            object: nil, userInfo: [Notification.Name.weatherRequest : self.weatherData])
         }
     }
     
@@ -83,6 +83,6 @@ class WeatherRequest {
 
 extension Notification.Name {
     static var weatherRequest: Notification.Name {
-          return .init(rawValue: "weather request") }
+        return .init(rawValue: "weather request") }
 }
 
