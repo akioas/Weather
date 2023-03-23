@@ -72,14 +72,17 @@ class WeatherRequest {
         urlDownloadGroup.notify(queue: DispatchQueue.global()) {
             self.weatherData = self.weatherData.sorted(by:
                                                         {cities.firstIndex(of: $0.name ?? "") ?? 0 < cities.firstIndex(of: $1.name ?? "") ?? 0})
-                print("!!!")
-            for w in self.weatherData {
-                print(w.name)
-            }
-            }
+            print("!!!")
+                NotificationCenter.default.post(name: .weatherRequest,
+                                                object: nil, userInfo: [Notification.Name.weatherRequest : self.weatherData]) 
+        }
     }
     
     
 }
 
+extension Notification.Name {
+    static var weatherRequest: Notification.Name {
+          return .init(rawValue: "weather request") }
+}
 
