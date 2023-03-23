@@ -18,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JMP-Si-t3T">
-                                <rect key="frame" x="9.6666666666666572" y="67" width="370.66666666666674" height="723"/>
+                                <rect key="frame" x="9.6666666666666572" y="82" width="370.66666666666674" height="708"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0P1-Lm-Ubb">
-                                        <rect key="frame" x="0.0" y="0.0" width="180.33333333333334" height="723"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="180.33333333333334" height="708"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="left" id="zkF-s7-bH6" customClass="LeftCell" customModule="Weather" customModuleProvider="target">
@@ -102,7 +102,7 @@
                                         </prototypes>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DlW-NS-Ip6">
-                                        <rect key="frame" x="190.33333333333331" y="0.0" width="180.33333333333331" height="723"/>
+                                        <rect key="frame" x="190.33333333333331" y="0.0" width="180.33333333333331" height="708"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="right" id="r7o-en-FvD" customClass="Cell" customModule="Weather" customModuleProvider="target">
@@ -189,15 +189,31 @@
                                     <constraint firstItem="DlW-NS-Ip6" firstAttribute="height" secondItem="0P1-Lm-Ubb" secondAttribute="height" id="xiw-BY-7UP"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qCD-OF-DME">
+                                <rect key="frame" x="267.66666666666669" y="47" width="102.33333333333331" height="34.333333333333343"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" cornerStyle="small">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Favourites"/>
+                                    </attributedString>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="toFavouritesScreen:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rKk-0H-Zv9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="JMP-Si-t3T" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="JjX-Pj-m0C"/>
+                            <constraint firstItem="JMP-Si-t3T" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="35" id="JjX-Pj-m0C"/>
                             <constraint firstItem="JMP-Si-t3T" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.95" id="anG-rK-dhd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JMP-Si-t3T" secondAttribute="bottom" constant="20" id="az0-Ha-Tdo"/>
                             <constraint firstItem="JMP-Si-t3T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="du4-Iw-o9d"/>
                             <constraint firstItem="JMP-Si-t3T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="f2y-H4-CpZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qCD-OF-DME" secondAttribute="trailing" constant="20" id="rgl-ey-mkd"/>
+                            <constraint firstItem="qCD-OF-DME" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="tFp-xw-lpJ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -209,8 +225,41 @@
             </objects>
             <point key="canvasLocation" x="47.692307692307693" y="-2.1327014218009479"/>
         </scene>
+        <!--Favourite Screen-->
+        <scene sceneID="xIF-03-7dw">
+            <objects>
+                <viewController storyboardIdentifier="Favourites" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Cs0-KN-0em" customClass="FavouriteScreen" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mKb-oQ-jS8">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oqa-Lz-VuV">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yCa-SA-2zb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="oqa-Lz-VuV" firstAttribute="centerY" secondItem="mKb-oQ-jS8" secondAttribute="centerY" id="aYL-tA-r0R"/>
+                            <constraint firstItem="oqa-Lz-VuV" firstAttribute="width" secondItem="mKb-oQ-jS8" secondAttribute="width" id="aam-KA-pCC"/>
+                            <constraint firstItem="oqa-Lz-VuV" firstAttribute="centerX" secondItem="mKb-oQ-jS8" secondAttribute="centerX" id="dsz-Bl-jBL"/>
+                            <constraint firstItem="oqa-Lz-VuV" firstAttribute="height" secondItem="mKb-oQ-jS8" secondAttribute="height" id="nVt-tq-ZUq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="table" destination="oqa-Lz-VuV" id="Aqf-8T-Dvx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AkL-EJ-7hP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="902" y="1"/>
+        </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

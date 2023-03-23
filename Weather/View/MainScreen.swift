@@ -8,7 +8,20 @@ class MainScreen: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private let leftId = "left"
     private let rightId = "right"
     var weatherData = [WeatherData]()
+    let controller = WeatherController()
     
+    @IBAction func toFavouritesScreen(_ sender: Any) {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+                let secondVc = storyboard.instantiateViewController(withIdentifier: "Favourites") as! FavouriteScreen
+        var favourites = [WeatherData]()
+        for (i, cityData) in weatherData.enumerated() {
+            if controller.isFavourite(city: i) {
+                favourites.append(cityData)
+            }
+        }
+        secondVc.weatherData = favourites
+            present(secondVc, animated: true, completion: nil)
+    }
     @IBOutlet weak var lTable: UITableView!
     @IBOutlet weak var rTable: UITableView!
     override func viewDidLoad() {
@@ -106,7 +119,7 @@ extension MainScreen {
             }
             
         }
-        if WeatherController().isFavourite(city: index) {
+        if controller.isFavourite(city: index) {
             cell.favView.image = UIImage(systemName: "heart.fill")
         } else {
             cell.favView.image = UIImage(systemName: "heart")
@@ -124,10 +137,10 @@ extension MainScreen {
         let tappedImage = tapGestureRecognizer.view as! UIImageView
         if tappedImage.image == UIImage(systemName: "heart") {
             tappedImage.image = UIImage(systemName: "heart.fill")
-            WeatherController().addToFavourites(city: (tappedImage.tag))
+            controller.addToFavourites(city: (tappedImage.tag))
         } else {
             tappedImage.image = UIImage(systemName: "heart")
-            WeatherController().removeFromFavourites(city: tappedImage.tag)
+            controller.removeFromFavourites(city: tappedImage.tag)
         }
     }
 
