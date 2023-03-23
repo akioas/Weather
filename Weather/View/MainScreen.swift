@@ -39,15 +39,15 @@ class MainScreen: UIViewController, UITableViewDataSource, UITableViewDelegate {
         WeatherRequest().makeRequest()
         configureTable(identifier: leftId, table: rTable)
         configureTable(identifier: rightId, table: lTable)
-        
+        view.backgroundColor = .systemGray6
     }
     
     func configureTable(identifier: String, table: UITableView) {
         table.register(Cell.self, forCellReuseIdentifier: identifier)
-
         table.dataSource = self
         table.isScrollEnabled = false
         table.delegate = self
+        table.backgroundColor = .systemGray6
     }
     
     @objc func refresh(_ notification: NSNotification) {
@@ -84,9 +84,7 @@ extension MainScreen {
         if tableView == lTable {
             let cell = tableView.dequeueReusableCell(withIdentifier: leftId, for: indexPath) as! LeftCell
 
-            
             let index = indexPath.row * 2
-            
           
             configureCell(cell: cell, index: index)
             
@@ -103,6 +101,7 @@ extension MainScreen {
     
     func configureCell(cell: Cell, index: Int) {
         cell.imgView?.image = UIImage(systemName: "rays")
+        cell.backgroundColor = .systemBackground
         cell.selectionStyle = .none
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
@@ -118,9 +117,9 @@ extension MainScreen {
             
             if let temp = weatherData[index].main?.temp {
                 cell.rightLabel?.font = UIFont.systemFont(ofSize: 12)
-                cell.rightLabel?.text = String(Int(temp - 273.15)) + "°C"
+                cell.rightLabel?.text = controller.getTemp(temp)
 
-                if let description = weatherData[index].weather?.first?.description {
+                if let description = weatherData[index].weather?.first?.main {
                     cell.weatherLabel?.font = UIFont.systemFont(ofSize: 10)
                     cell.weatherLabel?.text = description
                 }

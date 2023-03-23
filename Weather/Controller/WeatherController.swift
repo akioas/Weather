@@ -15,4 +15,8 @@ class WeatherController {
     func isFavourite(city: String) -> Bool {
         data.isFavourite(city: city)
     }
+    
+    func getTemp(_ temp: Double) -> String {
+        String(Int((temp) - 273.15)) + "°C"
+    }
 }

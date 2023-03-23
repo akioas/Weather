@@ -9,14 +9,15 @@ class FavouriteScreen: UIViewController, UITableViewDataSource, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         table.register(UITableViewCell.self, forCellReuseIdentifier: idebtifier)
-        
         table.dataSource = self
         table.delegate = self
+        table.backgroundColor = .systemGray6
     }
     
     override func viewDidAppear(_ animated: Bool) {
         table.reloadData()
     }
+    
 }
 
 extension FavouriteScreen {
@@ -26,24 +27,39 @@ extension FavouriteScreen {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idebtifier, for: indexPath)
+        cell.backgroundColor = .systemGray6
         let index = indexPath.row
         cell.selectionStyle = .none
         let text = (weatherData[index].name ?? "") + "\n" + (weatherData[index].weather?.first?.description ?? "")
+
+        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 15.0)])
+
+        let boldFontAttribute = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17.0)]
+
+        attributedString.addAttributes(boldFontAttribute, range: (text as NSString).range(of: (weatherData[index].name ?? "")))
+
+        cell.textLabel?.attributedText = attributedString
+        cell.textLabel?.numberOfLines = 0
         let windText = String(weatherData[index].wind?.speed ?? 0) + " m/s"
-        let tempText = String(Int((weatherData[index].main?.temp ?? 0.0) - 273.15)) + " °C"
-        cell.textLabel?.numberOfLines = 2
-        cell.textLabel?.text = text
+        let tempText = WeatherController().getTemp(weatherData[index].main?.temp ?? 0.0)
         
         let accView = UIView()
         accView.frame = CGRect(x: 0, y: 0, width: 150, height: 50)
         let lLabel = UILabel()
-        lLabel.frame = CGRect(x: 0, y: 0, width: 70, height: 50)
+        lLabel.frame = CGRect(x: 20, y: 0, width: 60, height: 50)
         lLabel.text = windText
+        lLabel.font = UIFont.systemFont(ofSize: 14)
+        lLabel.textColor = .systemIndigo
         let rLabel = UILabel()
-        rLabel.frame = CGRect(x: 80, y: 0, width: 70, height: 50)
+        rLabel.frame = CGRect(x: 90, y: 0, width: 60, height: 50)
         rLabel.text = tempText
+        rLabel.font = UIFont.systemFont(ofSize: 14)
+        rLabel.textColor = .systemPink
         accView.addSubview(rLabel)
         accView.addSubview(lLabel)
+        accView.layer.cornerRadius = 3
+        accView.layer.borderColor = UIColor.secondarySystemFill.cgColor
+        accView.layer.borderWidth = 1
         cell.accessoryView = accView
         
         return cell
